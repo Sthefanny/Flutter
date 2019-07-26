@@ -1,6 +1,6 @@
 class EpisodeResponse {
   final EpisodeInfo info;
-  final EpisodeResult results;
+  final List<EpisodeResult> results;
 
   EpisodeResponse({
     this.info,
@@ -8,8 +8,8 @@ class EpisodeResponse {
   });
 
   EpisodeResponse.fromJson(Map<String, dynamic> json)
-      : info = json['info'],
-        results = json['results'];
+      : info = EpisodeInfo.fromJson(json['info']),
+        results = (json['results'] as List<dynamic>).map((value) => EpisodeResult.fromJson(value)).toList();
 }
 
 class EpisodeInfo {
@@ -28,8 +28,8 @@ class EpisodeInfo {
   EpisodeInfo.fromJson(Map<String, dynamic> json)
       : count = json['count'],
         pages = json['pages'],
-        pages = json['next'],
-        pages = json['prev'];
+        next = json['next'],
+        prev = json['prev'];
 }
 
 class EpisodeResult {
