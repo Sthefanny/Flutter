@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty/src/home/home_module.dart';
+import 'package:rick_and_morty/utils/routes.dart';
+
+import 'pages/episodes/episodes_page.dart';
 
 class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Slidy',
+      title: 'Rick and Morty',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeModule(),
+      initialRoute: Routes.initial,
+      onGenerateRoute: routes,
     );
+  }
+
+  Route routes(RouteSettings settings) {
+    switch (settings.name) {
+      case Routes.initial:
+      default:
+        return MaterialPageRoute(builder: (_) => EpisodesPage());
+    }
   }
 }
