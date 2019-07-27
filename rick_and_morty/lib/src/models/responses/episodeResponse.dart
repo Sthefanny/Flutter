@@ -37,7 +37,7 @@ class EpisodeResult {
   final String name;
   final String airDate;
   final String episode;
-  final List<String> characters;
+  final List<dynamic> characters;
   final String url;
   final String created;
 
@@ -54,7 +54,7 @@ class EpisodeResult {
   EpisodeResult.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],
-        airDate = json['air-date'],
+        airDate = json['air_date'],
         episode = json['episode'],
         characters = json['characters'],
         url = json['url'],
