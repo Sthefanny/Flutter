@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty/utils/routes.dart';
 
-import 'pages/episodes/episodes_module.dart';
+import 'pages/home/home_page.dart';
 
 class AppWidget extends StatelessWidget {
   @override
@@ -20,7 +20,7 @@ class AppWidget extends StatelessWidget {
     switch (settings.name) {
       case Routes.initial:
       default:
-        return MaterialPageRoute(builder: (_) => EpisodesModule());
+        return MaterialPageRoute(builder: (_) => HomePage());
     }
   }
 }

@@ -1,4 +1,6 @@
+import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty/src/common/progress_widget.dart';
 import 'package:rick_and_morty/src/models/responses/episodeResponse.dart';
 import 'package:rick_and_morty/src/pages/episodes/episodes_module.dart';
 
@@ -14,28 +16,23 @@ class _EpisodesPageState extends State<EpisodesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Episodes"),
-      ),
-      body: FutureBuilder(
-        future: bloc.addEpisodes(),
-        builder: (context, snapshot) {
-          return StreamBuilder(
-            stream: bloc.episodes,
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) return CircularProgressIndicator();
+    return FutureBuilder(
+      future: bloc.addEpisodes(),
+      builder: (context, snapshot) {
+        return StreamBuilder(
+          stream: bloc.episodes,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) return ProgressWidget();
 
-              return ListView.builder(
-                itemCount: snapshot.data.results.length,
-                itemBuilder: (context, int index) {
-                  return episodeListTile(snapshot.data.results[index]);
-                },
-              );
-            },
-          );
-        },
-      ),
+            return ListView.builder(
+              itemCount: snapshot.data.results.length,
+              itemBuilder: (context, int index) {
+                return episodeListTile(snapshot.data.results[index]);
+              },
+            );
+          },
+        );
+      },
     );
   }
 
