@@ -1,5 +1,7 @@
+import 'package:rick_and_morty/src/models/infoModel.dart';
+
 class EpisodeResponse {
-  final EpisodeInfo info;
+  final InfoModel info;
   final List<EpisodeResult> results;
 
   EpisodeResponse({
@@ -8,28 +10,8 @@ class EpisodeResponse {
   });
 
   EpisodeResponse.fromJson(Map<String, dynamic> json)
-      : info = EpisodeInfo.fromJson(json['info']),
+      : info = InfoModel.fromJson(json['info']),
         results = (json['results'] as List<dynamic>).map((value) => EpisodeResult.fromJson(value)).toList();
-}
-
-class EpisodeInfo {
-  final int count;
-  final int pages;
-  final String next;
-  final String prev;
-
-  EpisodeInfo({
-    this.count,
-    this.pages,
-    this.next,
-    this.prev,
-  });
-
-  EpisodeInfo.fromJson(Map<String, dynamic> json)
-      : count = json['count'],
-        pages = json['pages'],
-        next = json['next'],
-        prev = json['prev'];
 }
 
 class EpisodeResult {

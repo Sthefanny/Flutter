@@ -2,9 +2,10 @@ import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty/src/app_module.dart';
 import 'package:rick_and_morty/src/common/progress_widget.dart';
-import 'package:rick_and_morty/src/pages/characters/characters_page.dart';
+import 'package:rick_and_morty/src/pages/characters/characters_module.dart';
 import 'package:rick_and_morty/src/pages/episodes/episodes_module.dart';
 import 'package:rick_and_morty/src/pages/home/home_bloc.dart';
+import 'package:rick_and_morty/src/pages/locations/locations_module.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,7 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   HomeBloc bloc = AppModule.to.getBloc<HomeBloc>();
-  var pages = [EpisodesModule(), CharactersPage()];
+  var pages = [EpisodesModule(), CharactersModule(), LocationsModule()];
 
   @override
   Widget build(BuildContext context) {
@@ -54,17 +55,17 @@ class _HomePageState extends State<HomePage> {
                   title: Text("Episodes")),
               BubbleBottomBarItem(
                   backgroundColor: Colors.deepPurple,
-                  icon: Icon(Icons.access_time, color: Colors.black),
+                  icon: Icon(Icons.face, color: Colors.black),
                   activeIcon: Icon(
-                    Icons.access_time,
+                    Icons.face,
                     color: Colors.deepPurple,
                   ),
                   title: Text("Characters")),
               BubbleBottomBarItem(
                   backgroundColor: Colors.indigo,
-                  icon: Icon(Icons.folder_open, color: Colors.black),
+                  icon: Icon(Icons.public, color: Colors.black),
                   activeIcon: Icon(
-                    Icons.folder_open,
+                    Icons.public,
                     color: Colors.indigo,
                   ),
                   title: Text("Locations")),
