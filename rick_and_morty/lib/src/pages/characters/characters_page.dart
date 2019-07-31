@@ -68,7 +68,7 @@ class _CharactersPageState extends State<CharactersPage> {
           ),
           Container(
             alignment: Alignment.topLeft,
-            margin: EdgeInsets.only(left: 30.0, right: 30.0),
+            margin: EdgeInsets.only(left: 20.0, right: 20.0),
             child: Column(
               children: <Widget>[
                 TextWidget(title: 'Status: ', text: item.status),

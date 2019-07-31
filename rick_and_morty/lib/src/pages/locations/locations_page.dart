@@ -61,7 +61,7 @@ class _LocationsPageState extends State<LocationsPage> {
         children: <Widget>[
           Container(
             alignment: Alignment.topLeft,
-            margin: EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
+            margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
             child: Column(
               children: <Widget>[
                 TextWidget(title: 'Status: ', text: item.type),

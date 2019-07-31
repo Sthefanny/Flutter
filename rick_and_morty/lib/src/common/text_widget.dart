@@ -16,14 +16,14 @@ class TextWidget extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.20,
             child: Text(
               title,
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
           ),
           Container(
               width: MediaQuery.of(context).size.width * 0.65,
               child: Text(
                 text,
-                style: TextStyle(fontSize: 16.0),
+                style: TextStyle(fontSize: 15.0),
               ))
         ],
       ),
