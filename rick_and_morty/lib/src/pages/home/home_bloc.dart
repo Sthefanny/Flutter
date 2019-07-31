@@ -1,21 +1,44 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:flutter/material.dart';
-import 'package:rxdart/subjects.dart';
+import 'package:rxdart/rxdart.dart';
+
+enum NavBarItem {
+  EPISODES,
+  CHARACTERS,
+  LOCATION,
+}
 
 class HomeBloc extends BlocBase {
-  final _pageController = BehaviorSubject<Widget>();
-  final _pageIndexController = BehaviorSubject<int>.seeded(0);
+  final _navBarController = PublishSubject<NavBarItem>();
 
-  Stream<Widget> get page => _pageController.stream;
-  Stream<int> get pageIndex => _pageIndexController.stream;
+  NavBarItem defaultItem = NavBarItem.CHARACTERS;
+  int actualItem = NavBarItem.CHARACTERS.index;
 
-  Function(Widget) get changePage => _pageController.sink.add;
-  Function(int) get changePageIndex => _pageIndexController.sink.add;
+  Observable<NavBarItem> get itemStream => _navBarController.stream;
+
+  Function(NavBarItem) get changeItem => _navBarController.sink.add;
+  void pickItem(int i) {
+    if (i != actualItem) {
+      switch (i) {
+        case 0:
+          changeItem(NavBarItem.EPISODES);
+          actualItem = NavBarItem.EPISODES.index;
+          break;
+        case 2:
+          changeItem(NavBarItem.LOCATION);
+          actualItem = NavBarItem.LOCATION.index;
+          break;
+        case 1:
+        default:
+          actualItem = NavBarItem.CHARACTERS.index;
+          changeItem(NavBarItem.CHARACTERS);
+          break;
+      }
+    }
+  }
 
   @override
   void dispose() {
-    _pageController.close();
-    _pageIndexController.close();
+    _navBarController.close();
     super.dispose();
   }
 }

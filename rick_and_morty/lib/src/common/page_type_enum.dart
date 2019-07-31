@@ -1,0 +1,4 @@
+enum PageTypeEnum {
+  LIST,
+  DETAILS,
+}

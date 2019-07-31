@@ -1,6 +1,7 @@
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty/src/app_module.dart';
+import 'package:rick_and_morty/src/common/bottom_navbar_widget.dart';
 import 'package:rick_and_morty/src/common/progress_widget.dart';
 import 'package:rick_and_morty/src/pages/characters/characters_module.dart';
 import 'package:rick_and_morty/src/pages/episodes/episodes_module.dart';
@@ -13,7 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  HomeBloc bloc = AppModule.to.getBloc<HomeBloc>();
+  HomeBloc _bloc = AppModule.to.getBloc<HomeBloc>();
   var pages = [EpisodesModule(), CharactersModule(), LocationsModule()];
 
   @override
@@ -22,54 +23,33 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text("Rick and Morty"),
       ),
-      body: StreamBuilder(
-        stream: bloc.page,
-        initialData: pages[0],
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) return ProgressWidget();
-
-          return snapshot.data;
+      body: StreamBuilder<NavBarItem>(
+        stream: _bloc.itemStream,
+        initialData: _bloc.defaultItem,
+        builder: (BuildContext context, AsyncSnapshot<NavBarItem> snapshot) {
+          switch (snapshot.data) {
+            case NavBarItem.EPISODES:
+              return EpisodesModule();
+            case NavBarItem.LOCATION:
+              return LocationsModule();
+            case NavBarItem.CHARACTERS:
+            default:
+              return CharactersModule();
+          }
         },
       ),
       bottomNavigationBar: StreamBuilder(
-        stream: bloc.pageIndex,
+        stream: _bloc.itemStream,
+        initialData: _bloc.defaultItem,
         builder: (context, snapshot) {
           return BubbleBottomBar(
             opacity: .2,
-            currentIndex: snapshot.data,
+            currentIndex: snapshot.data.index,
             borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
             elevation: 8,
             hasInk: true,
-            onTap: (index) {
-              bloc.changePageIndex(index);
-              bloc.changePage(pages[index]);
-            },
-            items: <BubbleBottomBarItem>[
-              BubbleBottomBarItem(
-                  backgroundColor: Colors.red,
-                  icon: Icon(Icons.dashboard, color: Colors.black),
-                  activeIcon: Icon(
-                    Icons.dashboard,
-                    color: Colors.red,
-                  ),
-                  title: Text("Episodes")),
-              BubbleBottomBarItem(
-                  backgroundColor: Colors.deepPurple,
-                  icon: Icon(Icons.face, color: Colors.black),
-                  activeIcon: Icon(
-                    Icons.face,
-                    color: Colors.deepPurple,
-                  ),
-                  title: Text("Characters")),
-              BubbleBottomBarItem(
-                  backgroundColor: Colors.indigo,
-                  icon: Icon(Icons.public, color: Colors.black),
-                  activeIcon: Icon(
-                    Icons.public,
-                    color: Colors.indigo,
-                  ),
-                  title: Text("Locations")),
-            ],
+            onTap: _bloc.pickItem,
+            items: BottomNavbarWidget().build(),
           );
         },
       ),

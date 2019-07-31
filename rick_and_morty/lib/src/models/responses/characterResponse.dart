@@ -1,5 +1,7 @@
 import 'package:rick_and_morty/src/models/infoModel.dart';
 
+import '../nameUrlModel.dart';
+
 class CharacterResponse {
   final InfoModel info;
   final List<CharacterResult> results;
@@ -21,8 +23,8 @@ class CharacterResult {
   final String species;
   final String type;
   final String gender;
-  final Object origin;
-  final Object location;
+  final NameUrlModel origin;
+  final NameUrlModel location;
   final String image;
   final List<dynamic> episodes;
   final String url;
@@ -50,8 +52,8 @@ class CharacterResult {
         species = json['species'],
         type = json['type'],
         gender = json['gender'],
-        origin = json['origin'],
-        location = json['location'],
+        origin = NameUrlModel.fromJson(json['origin']),
+        location = NameUrlModel.fromJson(json['location']),
         image = json['image'],
         episodes = json['episodes'],
         url = json['url'],
