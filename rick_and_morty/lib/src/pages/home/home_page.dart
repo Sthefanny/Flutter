@@ -2,7 +2,6 @@ import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty/src/app_module.dart';
 import 'package:rick_and_morty/src/common/bottom_navbar_widget.dart';
-import 'package:rick_and_morty/src/common/progress_widget.dart';
 import 'package:rick_and_morty/src/pages/characters/characters_module.dart';
 import 'package:rick_and_morty/src/pages/episodes/episodes_module.dart';
 import 'package:rick_and_morty/src/pages/home/home_bloc.dart';
