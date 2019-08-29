@@ -1,52 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:qrcode_reader/qrcode_reader.dart';
 
-import 'generateScreen.dart';
-import 'scanScreen.dart';
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
 
-class HomeScreen extends StatelessWidget {
+class _HomeScreenState extends State<HomeScreen> {
+  Future<String> _barcodeString;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('QR Code Scanner & Generator'),
+    return new Scaffold(
+      appBar: new AppBar(
+        title: const Text('QRCode Reader Example'),
       ),
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-            child: RaisedButton(
-                color: Colors.blue,
-                textColor: Colors.white,
-                splashColor: Colors.blueGrey,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ScanScreen()),
-                  );
-                },
-                child: const Text('SCAN QR CODE')),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-            child: RaisedButton(
-                color: Colors.blue,
-                textColor: Colors.white,
-                splashColor: Colors.blueGrey,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => GenerateScreen()),
-                  );
-                },
-                child: const Text('GENERATE QR CODE')),
-          ),
-        ],
-      )),
+      body: new Center(
+          child: new FutureBuilder<String>(
+              future: _barcodeString,
+              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                return new Text(snapshot.data != null ? snapshot.data : '');
+              })),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            _barcodeString = new QRCodeReader().setAutoFocusIntervalInMs(200).setForceAutoFocus(true).setTorchEnabled(true).setHandlePermissions(true).setExecuteAfterPermissionGranted(true).scan();
+          });
+        },
+        tooltip: 'Reader the QRCode',
+        child: new Icon(Icons.add_a_photo),
+      ),
     );
   }
 }

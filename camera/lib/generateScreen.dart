@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'dart:typed_data';
@@ -103,13 +102,7 @@ class GenerateScreenState extends State<GenerateScreen> {
           ),
           Expanded(
             child: Center(
-              child: RepaintBoundary(
-                key: globalKey,
-                child: QrImage(
-                  data: _dataString,
-                  size: 0.5 * bodyHeight,
-                ),
-              ),
+              child: RepaintBoundary(key: globalKey, child: Container()),
             ),
           ),
         ],

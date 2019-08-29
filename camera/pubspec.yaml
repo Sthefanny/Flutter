@@ -1,5 +1,5 @@
 name: camera
-description: A new Flutter project.
+description: A new Flutter application.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -24,8 +24,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   path_provider: ^1.2.0
-  barcode_scan: ^1.0.0
-  qr_flutter: ^3.0.1
+  qrcode_reader: ^0.4.4
 
 dev_dependencies:
   flutter_test:
